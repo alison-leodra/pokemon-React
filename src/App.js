@@ -1,24 +1,68 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Container from "./components/Container";
+import Header from "./components/Header";
+import Welcome from "./components/Welcome";
+import CharacterContainer from "./components/CharacterContainer";
+
+
 
 function App() {
+
+  const [characters, setCharacters] = useState(null);
+
+  const reqApi = async () => {
+
+    let randomPokemon = [];
+
+    for (let i = 0; i < 3; i++) {
+      randomPokemon.push(Math.floor(Math.random() * (150 - 0) + 0));
+    }
+
+    const path = "https://pokeapi.co/api/v2/pokemon/";
+
+    const listUrl = randomPokemon
+      .map(element => path + element)
+      .map(element => fetch(element))
+
+    const listUrlDone = await Promise.all(listUrl)
+    const listUrlJson = listUrlDone.map(element => element.json())
+    const arrayPokemons = await Promise.all(listUrlJson)
+
+    const arrayInfoPokemon = arrayPokemons
+      .map(element => bringStats(element))
+
+    setCharacters(arrayInfoPokemon);
+
+  };
+
+
+  const bringStats = (element) => {
+
+    const name = element.name;
+    const image = element.sprites.front_default;
+    const weight = element.weight;
+    const height = element.height
+    return {
+      name: name,
+      image: image,
+      weight: weight,
+      height: height
+    }
+  };
+
+
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Header />
+      {!characters ? (
+        <Welcome reqApi={reqApi} />
+      ) : (
+        <CharacterContainer characters={characters} reqApi={reqApi} />
+      )}
+    </Container>
   );
 }
 
