@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Container from "./Container"
-import Header from "./Header";
-import Welcome from "./Welcome";
+import Welcome from "../pages/Welcome";
 import CharacterContainer from "./CharacterContainer";
 
 
@@ -58,7 +57,6 @@ function PokemonVersion1() {
   return (
 
     <Container>
-      <Header />
       {!characters ? (
         <Welcome reqApi={reqApi} />
       ) : (

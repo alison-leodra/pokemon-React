@@ -1,11 +1,11 @@
 import styled from "styled-components"
-import img404 from "../images/Error.png"
+
 
 export default function Error404() {
 
   return (
     <ErrorContainer>
-        <ImageError src={img404} alt="error-pokemon"></ImageError>      
+        <p>error 404</p>     
     </ErrorContainer>
   )
 }
@@ -16,9 +16,3 @@ align-items: center;
 justify-content: center;
 `;
 
-const ImageError = styled.img`
-width: 500px;
-margin-top: 200px;
-`;
-
- 

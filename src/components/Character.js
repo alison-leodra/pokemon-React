@@ -4,7 +4,7 @@ export default function Character(props) {
 
   const { dataCharacter } = props;
 
-  const { name, url, image, weight, height } = dataCharacter;
+  const { name, image, weight, height } = dataCharacter;
 
 
   return (
