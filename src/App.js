@@ -21,6 +21,7 @@ function App() {
         <Route path='/v1' exact component={()=><PokemonVersion1 />}/>
         <Route path='/Evoluciones' exact component={()=><Evolutions />}/>
         <Route path='/Tipos' exact component={()=><Types />}/>
+        <Route component={()=><Error404/>}/>
       </Switch>
     </Router>
     </div>
